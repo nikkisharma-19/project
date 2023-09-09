@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="project.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" href="#">My Summer Website</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#features">Features</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container text-center">
+    <h1>Welcome to My Website</h1>
+  </div>
+</header>
+
+<section id="features" class="features">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="feature-item">
+          <h2>Feature 1</h2>
+          <p>Google search</p>
+          <form action='http://3.110.106.5/cgi-bin/projectlw.py'>
+<h3>Enter Anything <input type='text' id="featureSearchQuery" placeholder="Search within Feature 1"  name='q' /></h3><br />
+
+          <button id="featureSearchButton">Search Feature 1</button>
+</form>
+        </div>
+      </div>
+
+
+      <div class="col-md-4">
+        <div class="feature-item">
+          <h2>Feature 2</h2>
+          <p> live video streaming</p>
+<video id="liveVideo" autoplay></video>
+          <button id="captureButton">Capture Photo</button>
+          <canvas id="photoCanvas"></canvas>
+          <script>
+            const videoElement = document.getElementById("liveVideo");
+            const captureButton = document.getElementById("captureButton");
+            const photoCanvas = document.getElementById("photoCanvas");
+            const constraints = { video: true };
+
+            navigator.mediaDevices.getUserMedia(constraints)
+              .then(function(stream) {
+                videoElement.srcObject = stream;
+              })
+              .catch(function(error) {
+                console.error("Error accessing camera:", error);
+              });
+
+            captureButton.addEventListener("click", function() {
+              const context = photoCanvas.getContext("2d");
+              context.drawImage(videoElement, 0, 0, photoCanvas.width, photoCanvas.height);
+              // You can save the canvas as an image or perform other actions
+            });
+          </script>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-item">
+          <h2>Feature 3</h2>
+          <p>upload file</p>
+<input type="file" id="fileInput">
+          <button id="uploadButton">Upload File</button>
+          <script>
+            const fileInput = document.getElementById("fileInput");
+            const uploadButton = document.getElementById("uploadButton");
+            
+            uploadButton.addEventListener("click", function() {
+              if (fileInput.files.length > 0) {
+                
+                window.location.href = "feature3.html"; 
+              } else {
+                alert("Please select a file to upload.");
+              }
+            });
+          </script>
+        </div>
+      </div>
+    
+<div class="col-md-4">
+        <div class="feature-item">
+          <h2>Feature 4</h2>
+          <p>GPS Location</p>
+          <p id="gpsLocation">Location data will appear here.</p>
+          <button id="getLocationButton">Get GPS Location</button>
+          <script>
+            const getLocationButton = document.getElementById("getLocationButton");
+            const gpsLocation = document.getElementById("gpsLocation");
+
+            getLocationButton.addEventListener("click", function() {
+              if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                  const latitude = position.coords.latitude;
+                  const longitude = position.coords.longitude;
+                  gpsLocation.innerHTML = `Latitude: ${latitude}, Longitude: ${longitude}`;
+                }, function(error) {
+                  console.error("Error getting GPS location:", error);
+                  gpsLocation.innerHTML = "Error getting GPS location.";
+                });
+              } else {
+                gpsLocation.innerHTML = "GPS not available in this browser.";
+              }
+            });
+          </script>
+        </div>
+      </div>
+
+
+<div class="col-md-4">
+        <div class="feature-item">
+          <h2>Feature 5</h2>
+          
+<button id="speechRecognitionButton">Start Speech Recognition</button>
+<div id="recognizedText"></div>
+
+<script>
+  const speechRecognitionButton = document.getElementById("speechRecognitionButton");
+  const recognizedText = document.getElementById("recognizedText");
+  const recognition = new webkitSpeechRecognition() || speechRecognition();
+
+  recognition.onresult = function (event) {
+    const result = event.results[0][0].transcript;
+    recognizedText.textContent = `You said: "${result}"`;
+  };
+
+  speechRecognitionButton.addEventListener("click", function () {
+    recognizedText.textContent = "Listening...";
+    recognition.start();
+  });
+</script>
+</div>
+  </div>
+
+<div class="col-md-4">
+        <div class="feature-item">
+          <h2>Feature 6</h2>
+<input type="text" id="textToSpeechInput" placeholder="Enter text">
+<button id="textToSpeechButton">Convert to Speech</button>
+
+<script>
+  const textToSpeechInput = document.getElementById("textToSpeechInput");
+  const textToSpeechButton = document.getElementById("textToSpeechButton");
+
+  textToSpeechButton.addEventListener("click", function () {
+    const textToSpeak = textToSpeechInput.value;
+    const utterance = new SpeechSynthesisUtterance(textToSpeak);
+    speechSynthesis.speak(utterance);
+  });
+</script>
+
+    </div>
+  </div>
+
+
+<div class="col-md-4">
+    <div class="feature-item">
+      <h2>Feature 7</h2>
+      <p>Weather Report</p>
+      <input type="text" id="weatherCityInput" placeholder="Enter city name">
+      <button id="getWeatherButton">Get Weather</button>
+      <div id="weatherReport"></div>
+     <script>
+  const weatherCityInput = document.getElementById("weatherCityInput");
+  const getWeatherButton = document.getElementById("getWeatherButton");
+  const weatherReport = document.getElementById("weatherReport");
+
+  getWeatherButton.addEventListener("click", function () {
+    const city = weatherCityInput.value;
+    const apiKey = 'ead14161abe6ccd6a910c3ee4a90e710'
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+    fetch(apiUrl)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.cod === 200) {
+          const temperature = data.main.temp;
+          const description = data.weather[0].description;
+          const weatherInfo = `Temperature: ${temperature}°C, Description: ${description}`;
+          weatherReport.textContent = `Weather in ${city}: ${weatherInfo}`;
+        } else {
+          weatherReport.textContent = `Weather data not found for ${city}`;
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching weather data:", error);
+        weatherReport.textContent = "Error fetching weather data.";
+      });
+  });
+</script>
+
+    </div>
+  </div>
+  </div>
+  </div>
+
+</section>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

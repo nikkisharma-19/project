@@ -1,0 +1,28 @@
+.hero {
+    background-color: #e48686;
+    padding: 100px 0;
+  }
+  
+  .features {
+    background-color: #e3b4b4;
+    padding: 100px 0;
+  }
+  
+  .feature-item {
+    text-align: center;
+    margin-bottom: 30px;
+    color: azure;
+  }
+ #liveVideo {
+      width: 100%;
+      max-width: 200px;
+      height: auto;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+#photoCanvas {
+      width: 100%;
+      max-width: 250px;
+      border-radius: 50%;
+      border: 2px solid #000000; 
+    }
